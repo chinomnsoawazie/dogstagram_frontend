@@ -2,16 +2,19 @@ import React, {useState} from 'react'
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, SafeAreaView, StatusBar, Button} from 'react-native'
 import Header from '../components/Header'
 import { Ionicons } from '@expo/vector-icons'
+import { useSelector } from 'react-redux'
 
 function LoginSIgnupScreen({navigation}) {
     const [username, setUsername] = useState('username')
     const [password, setPassword] = useState('password')
-
+    const thisDog = useSelector(state => state.allDogInfo.dog)
+    
     const handleSubmit = () => {
-        console.log(username, password)
+        console.log(username, password, thisDog)
         navigation.navigate('Signup')
+        
     }
-
+    
     return (
         <>
         <StatusBar barStyle='light-content' />
