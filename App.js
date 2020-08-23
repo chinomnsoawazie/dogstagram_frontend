@@ -4,7 +4,6 @@ import { StyleSheet, Text, View } from 'react-native';
 
 export default function App() {
 
-  //Work with this
   return (
     <View style={styles.container}>
       
