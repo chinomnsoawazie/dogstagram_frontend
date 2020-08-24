@@ -12,7 +12,6 @@ const dogReducer = (state = initialState, action) => {
                 dog: action.payload
             }
 
-
         default:
             return state
     }

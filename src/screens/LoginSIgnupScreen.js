@@ -1,40 +1,46 @@
 import React, {useState} from 'react'
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, SafeAreaView, StatusBar, Button} from 'react-native'
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, SafeAreaView, Button} from 'react-native'
 import Header from '../components/Header'
-import { Ionicons } from '@expo/vector-icons'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { login } from '../redux/actions'
 
 function LoginSIgnupScreen({navigation}) {
-    const [username, setUsername] = useState('username')
+    const [handle, setHandle] = useState('@handle')
     const [password, setPassword] = useState('password')
     const thisDog = useSelector(state => state.allDogInfo.dog)
+    const dispatch = useDispatch()
     
     const handleSubmit = () => {
-        console.log(username, password, thisDog)
+        console.log(handle, password, thisDog)
+        let user = {
+            handle: handle,
+            password: password
+        }
+        login(user, dispatch)
         navigation.navigate('Signup')
         
     }
     
     return (
         <>
-        <StatusBar barStyle='light-content' />
         < SafeAreaView style = {styles.container} >
             <View >
                 <Header title = {'DogStagram'} />
                 <View style={styles.formContainer}>
                     <TextInput 
                         style = {styles.textInput}
-                        placeholder="username"
-                        onChangeText = { usernameText => setUsername(usernameText)}
+                        placeholder="@handle"
+                        onChangeText = { handleText => setHandle(handleText)}
                     />
+
                     <TextInput
                     style = {styles.textInput}
                     placeholder="password" 
                     secureTextEntry={true}
                     onChangeText = { passwordText => setPassword(passwordText)}
                     />
- 
                 </View>
+
                 <View style = {styles.buttonContainer} >
                     < Button 
                     title = 'Log in'

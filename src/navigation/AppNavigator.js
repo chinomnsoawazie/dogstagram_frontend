@@ -3,6 +3,7 @@ import { NavigationContainer} from '@react-navigation/native'
 import { createStackNavigator} from '@react-navigation/stack'
 import LoginSignupScreen from '../screens/LoginSIgnupScreen'
 import SignupScreen from '../screens/SignupScreen'
+import PictureUpload from '../screens/PictureUpload'
 
 const Stack = createStackNavigator()
 
@@ -41,6 +42,7 @@ function MainStackNavigator() {
                 }}>
                 <Stack.Screen name = 'LoginSignupScreen' component = {LoginSignupScreen} />
                 <Stack.Screen name = 'Signup' component = {SignupScreen} />
+                <Stack.Screen name = 'PictureUpload' component = {PictureUpload} />
             </Stack.Navigator>
         </NavigationContainer>
     )

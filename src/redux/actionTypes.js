@@ -1,5 +1,8 @@
 //USER STUFF
 export const SET_USER = 'SET_USER'
+export const SET_HANDLE_CHECK = 'SET_HANDLE_CHECK'
+export const HANDLE_CHECKED = 'HANDLE_CHECKED'
+export const SET_PROFILE_PICTURE = 'SET_PROFILE_PICTURE'
 
 //DOG STUFF
 export const SET_DOG = 'SET_DOG'
