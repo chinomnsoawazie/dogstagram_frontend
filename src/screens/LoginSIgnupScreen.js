@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, SafeAreaView, Button} from 'react-native'
+import { StyleSheet, View, TextInput, SafeAreaView, Button} from 'react-native'
 import Header from '../components/Header'
 import { useSelector, useDispatch } from 'react-redux'
 import { login } from '../redux/actions'
@@ -17,7 +17,7 @@ function LoginSIgnupScreen({navigation}) {
             password: password
         }
         login(user, dispatch)
-        navigation.navigate('Signup')
+        navigation.navigate('LoggedInUser')
         
     }
     

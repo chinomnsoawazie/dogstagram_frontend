@@ -4,6 +4,7 @@ import { createStackNavigator} from '@react-navigation/stack'
 import LoginSignupScreen from '../screens/LoginSIgnupScreen'
 import SignupScreen from '../screens/SignupScreen'
 import PictureUpload from '../screens/PictureUpload'
+import LoggedInUserScreen from '../screens/LoggedInUserScreen'
 
 const Stack = createStackNavigator()
 
@@ -43,6 +44,7 @@ function MainStackNavigator() {
                 <Stack.Screen name = 'LoginSignupScreen' component = {LoginSignupScreen} />
                 <Stack.Screen name = 'Signup' component = {SignupScreen} />
                 <Stack.Screen name = 'PictureUpload' component = {PictureUpload} />
+                <Stack.Screen name = 'LoggedInUser' component = {LoggedInUserScreen}/>
             </Stack.Navigator>
         </NavigationContainer>
     )

@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { StyleSheet, Text, View, TextInput, SafeAreaView, ScrollView, Button, Alert} from 'react-native'
+import { StyleSheet, Text, View, TextInput, SafeAreaView, ScrollView, Image, Button, Alert} from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 import { signup, checkHandle} from '../redux/actions'
 import Constants from 'expo-constants'
@@ -15,9 +15,15 @@ function SignupScreen({navigation}) {
     const dispatch = useDispatch()
     const handleCheck = useSelector(state => state.allUserInfo.handleAvailable)
     const isHandleChecked = useSelector(state => state.allUserInfo.handleChecked)
+    const pictureForUpload = useSelector(state => state.allUserInfo.profilePicForUpload)
 
 
     const handleSubmit = () => {
+        console.log('in create')
+        let file_name = name + 'ProfilePic.png'
+        // console.log(typeof file_name)
+        // debugger
+        // console.log(JSON.stringify(pictureForUpload.uri))
         let user = {
             name: name,
             handle: handle,
@@ -25,17 +31,18 @@ function SignupScreen({navigation}) {
             state: state,
             country: country,
             password: password,
+            photo: pictureForUpload,
+            file_name: file_name
         }
 
-        if(handleCheck){
-            if (password === confirm){
-                signup(user, dispatch)
-            }else{
-                return Alert.alert("Passwords don't match")
-            }
+        if(!handleCheck){
+            return alert("Please check if username is available")
+        } else if (password !== confirm) {
+            return alert("Passwords don't match")
         }else{
-            Alert.alert('Pls check if username is available')
+            signup(user, dispatch)
         }
+        
     }
 
     const handleChange = () => {
@@ -71,6 +78,11 @@ function SignupScreen({navigation}) {
                     onPress = {() => navigation.navigate('PictureUpload')}
                     />
 
+                    <Image 
+                    source={{ uri: pictureForUpload.uri }} 
+                    style={{ width: 100, height: 100, justifyContent: 'center'}}
+                    />
+                  
                     < TextInput
                         style = {styles.textInput}
                         placeholder = "@handle"
@@ -114,6 +126,8 @@ function SignupScreen({navigation}) {
                         secureTextEntry={true}
                         onChangeText = {confirm => setConfirm(confirm)}
                     />
+
+                    <Text> {password === confirm ? 'Passwords match' : 'Password dont match'}</Text>
  
                 </View>
 

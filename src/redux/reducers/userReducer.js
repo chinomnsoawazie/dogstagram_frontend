@@ -4,7 +4,7 @@ const initialState = {
     user: '',
     handleAvailable: '',
     handleChecked: '',
-    profilePicForUpload: []
+    profilePicForUpload: ''
 }
 
 
