@@ -1,15 +1,15 @@
-import {  SET_USER, SET_HANDLE_CHECK, HANDLE_CHECKED, SET_PROFILE_PICTURE} from '../actionTypes'
+import {  SET_USER, SET_HANDLE_CHECK, HANDLE_CHECKED, SET_PROFILE_PICTURE, SET_LOGGED_IN_CHECK} from '../actionTypes'
 
 const initialState = {
     user: '',
     handleAvailable: '',
     handleChecked: '',
-    profilePicForUpload: ''
+    profilePicForUpload: '',
+    checkIfLoggedIn: false
 }
 
 
 const userReducer = (state = initialState, action) => {
-    console.log('in reducer')
     switch (action.type) {
         case SET_USER:
             return{
@@ -32,6 +32,11 @@ const userReducer = (state = initialState, action) => {
             return {
                 ...state,
                 profilePicForUpload: action.payload
+            }
+        case SET_LOGGED_IN_CHECK:
+            return {
+                ...state,
+                checkIfLoggedIn: action.payload
             }
 
         default:

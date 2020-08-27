@@ -1,14 +1,29 @@
 import axios from 'axios'
-import { SET_USER, SET_HANDLE_CHECK, HANDLE_CHECKED, SET_PROFILE_PICTURE } from './actionTypes'
-import { useDispatch} from 'react-redux'
+import { SET_USER, SET_HANDLE_CHECK, HANDLE_CHECKED, SET_PROFILE_PICTURE, SET_LOGGED_IN_CHECK } from './actionTypes'
 
 
-export const login = (user, dispatch) =>{
-    axios.post(`http://localhost:3000/login`, user)
-    .then(userObj => {
-        console.log('from backend', userObj)
-        dispatch({ type: SET_USER, payload: userObj.data})
-    })
+export const login = async (user, dispatch) =>{
+    await fetch(`http://localhost:3000/login`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          handle: user.handle,
+          password: user.password
+        })
+      })
+      .then(response => response.json())
+      .then(userObj => {
+        console.log(userObj)
+        dispatch({type: SET_USER, payload: userObj});
+        dispatch({type: SET_LOGGED_IN_CHECK, payload: true})
+      })
+      .catch((error) => {
+        alert('Wrong username and/ore password, or user not found. Pls try again or signup if you are a new user')
+        console.log('Error', error)
+      })     
 }
 
 export const checkHandle = (handle, dispatch) => {
@@ -17,18 +32,12 @@ export const checkHandle = (handle, dispatch) => {
         console.log(r.data)
         dispatch({type: HANDLE_CHECKED, payload: true})
         dispatch({type: SET_HANDLE_CHECK, payload: r.data})
-
     })
 }
 
 
 
 export const signup = (user, dispatch) => {
-
-    // debugger
-
-    // user.photo.uri.split(":")[1];
-
      fetch(`http://localhost:3000/users`, {
        method: "POST",
        headers: {
@@ -45,45 +54,14 @@ export const signup = (user, dispatch) => {
          photo: user.photo.uri.split(":")[1],
          file_name: user.file_name,
        })
-     }).then((response) => {
-      if (response.ok) {
-        response.json().then((data) => {
-            console.log(data)
-          dispatch({
-            type: SET_USER,
-            payload: data
-          });
-        });
-      } else {
-        return Promise.reject('error')
-      };
-    }).catch(e => {
-      return Promise.reject(e)
-    })
-  };
-
-
-
-
-
-
-
-
-
-
-    //    .then((response) => {
-    //        console.log(response)
-    //        response.json();
-    //    })
-    //    .then(data => {
-
-    //     console.log(data)
-    //     // dispatch({
-    //     //     type: 'POST_CREATE_FAILED'
-    //     // })
-    //    })
-    //    .catch((error) => {
-    //        console.error('Error: ', error)
-    //    })
-
-
+     })
+     .then(userObj => {
+        console.log(userObj)
+        dispatch({type: SET_USER, payload: userObj});
+        dispatch({type: SET_LOGGED_IN_CHECK, payload: true})
+      })
+      .catch((error) => {
+        alert('Unable to create account')
+        console.log('Error', error)
+      }) 
+  }

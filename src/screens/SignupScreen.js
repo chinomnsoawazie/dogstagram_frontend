@@ -16,14 +16,14 @@ function SignupScreen({navigation}) {
     const handleCheck = useSelector(state => state.allUserInfo.handleAvailable)
     const isHandleChecked = useSelector(state => state.allUserInfo.handleChecked)
     const pictureForUpload = useSelector(state => state.allUserInfo.profilePicForUpload)
+    const checkIfLoggedIn = useSelector(state => state.allUserInfo.checkIfLoggedIn)
 
+    const handleChange = () => {
+        checkHandle(handle, dispatch)
+    }
 
-    const handleSubmit = () => {
-        console.log('in create')
+    const handleSubmit = async () => {
         let file_name = name + 'ProfilePic.png'
-        // console.log(typeof file_name)
-        // debugger
-        // console.log(JSON.stringify(pictureForUpload.uri))
         let user = {
             name: name,
             handle: handle,
@@ -34,19 +34,19 @@ function SignupScreen({navigation}) {
             photo: pictureForUpload,
             file_name: file_name
         }
-
+        
         if(!handleCheck){
             return alert("Please check if username is available")
         } else if (password !== confirm) {
             return alert("Passwords don't match")
-        }else{
-            signup(user, dispatch)
         }
-        
+
+        await signup(user, dispatch)
     }
 
-    const handleChange = () => {
-        checkHandle(handle, dispatch)
+    if (checkIfLoggedIn) {
+        console.log(checkIfLoggedIn)
+        navigation.navigate('LoggedInUser')
     }
 
     const showHandleChecked = () => {
@@ -54,6 +54,8 @@ function SignupScreen({navigation}) {
             return handleCheck ? 'Available' : 'Not available'
         }
     }
+
+    
     return (
         <SafeAreaView SafeAreaView style = {styles.container} >
 

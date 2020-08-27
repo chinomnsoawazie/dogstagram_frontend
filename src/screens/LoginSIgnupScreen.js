@@ -7,18 +7,20 @@ import { login } from '../redux/actions'
 function LoginSIgnupScreen({navigation}) {
     const [handle, setHandle] = useState('@handle')
     const [password, setPassword] = useState('password')
-    const thisDog = useSelector(state => state.allDogInfo.dog)
     const dispatch = useDispatch()
+    const checkIfLoggedIn = useSelector(state => state.allUserInfo.checkIfLoggedIn)
     
-    const handleSubmit = () => {
-        console.log(handle, password, thisDog)
+    const handleSubmit = async () => {
         let user = {
             handle: handle,
             password: password
         }
-        login(user, dispatch)
+        await login(user, dispatch)
+    }
+
+    if(checkIfLoggedIn){
+        console.log(checkIfLoggedIn)
         navigation.navigate('LoggedInUser')
-        
     }
     
     return (
@@ -45,6 +47,7 @@ function LoginSIgnupScreen({navigation}) {
                     < Button 
                     title = 'Log in'
                     onPress={() => handleSubmit()}
+
                     />
                     < Button 
                     title = 'Signup'

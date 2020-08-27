@@ -11,10 +11,7 @@ function ImagePickerComponent({navigation}) {
     const [image, setImage ] = useState(null)
     const dispatch = useDispatch()
             
-    useEffect(() => {
-        getPermissionAsync()
-    })
-            
+    
     const getPermissionAsync = async () => {
         if (Constants.platform.ios) {
             const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
@@ -23,6 +20,10 @@ function ImagePickerComponent({navigation}) {
             }
         }
     };
+    
+    useEffect(() => {
+        getPermissionAsync()
+    })
 
     const submitImage = () => {
         dispatch({ type: SET_PROFILE_PICTURE, payload: image})
@@ -30,17 +31,17 @@ function ImagePickerComponent({navigation}) {
             
     const _pickImage = async () => {
         try {
-        let result = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.All,
-            allowsEditing: true,
-            aspect: [4, 3],
-            quality: 1,
-        });
-        if (!result.cancelled) {
-            console.log(result)
-            setImage(result);    
-        }
-        console.log('result', result);
+            let result = await ImagePicker.launchImageLibraryAsync({
+                mediaTypes: ImagePicker.MediaTypeOptions.All,
+                allowsEditing: true,
+                aspect: [4, 3],
+                quality: 1,
+            });
+            if (!result.cancelled) {
+                console.log(result)
+                setImage(result);    
+            }
+            console.log('result', result);
         } catch (E) {
         console.log('error', E);
         }
