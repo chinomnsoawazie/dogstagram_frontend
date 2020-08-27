@@ -17,11 +17,16 @@ export const login = async (user, dispatch) =>{
       .then(response => response.json())
       .then(userObj => {
         console.log(userObj)
-        dispatch({type: SET_USER, payload: userObj});
-        dispatch({type: SET_LOGGED_IN_CHECK, payload: true})
+        console.log(userObj.errors)
+        if(!userObj.errors){
+          dispatch({type: SET_USER, payload: userObj});
+          dispatch({type: SET_LOGGED_IN_CHECK, payload: true})
+        }else{
+          alert('Wrong username and/ore password, or user not found. Pls try again or signup if you are a new user')
+        }
       })
       .catch((error) => {
-        alert('Wrong username and/ore password, or user not found. Pls try again or signup if you are a new user')
+        alert("Sorry, it's not you, it's us. We're experiencing technical difficulty right now")
         console.log('Error', error)
       })     
 }
