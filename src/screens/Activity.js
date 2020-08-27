@@ -1,5 +1,8 @@
 import React from 'react'
-import { Text, Layout} from 'react-native-ui-kitten'
+import { Text} from 'react-native'
+// import { Text, Layout} from 'react-native-ui-kitten'
+import { Layout} from 'react-native-ui-kitten'
+
 
 const Activity = () => {
     return (
