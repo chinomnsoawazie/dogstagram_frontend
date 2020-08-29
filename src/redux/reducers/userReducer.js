@@ -1,11 +1,12 @@
-import {  SET_USER, SET_HANDLE_CHECK, HANDLE_CHECKED, SET_PROFILE_PICTURE, SET_LOGGED_IN_CHECK} from '../actionTypes'
+import {  SET_USER, SET_HANDLE_CHECK, HANDLE_CHECKED, SET_PROFILE_PICTURE, SET_LOGGED_IN_CHECK, SET_CURRENT_PROFILE} from '../actionTypes'
 
 const initialState = {
     user: '',
     handleAvailable: '',
     handleChecked: '',
     profilePicForUpload: '',
-    checkIfLoggedIn: false
+    checkIfLoggedIn: false,
+    currentProfile: ''
 }
 
 
@@ -37,6 +38,11 @@ const userReducer = (state = initialState, action) => {
             return {
                 ...state,
                 checkIfLoggedIn: action.payload
+            }
+        case SET_CURRENT_PROFILE:
+            return {
+                ...state,
+                currentProfile: action.payload
             }
 
         default:

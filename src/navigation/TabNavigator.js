@@ -1,12 +1,10 @@
 import React from 'react'
 import { createAppContainer } from 'react-navigation'
-import {  createBottomTabNavigator } from 'react-navigation-tabs'
+import {  createBottomTabNavigator, createMaterialTopTabNavigator } from 'react-navigation-tabs'
 import { Icon} from 'react-native-ui-kitten'
 
 import Activity from '../screens/Activity'
 import AddDog from '../screens/AddDog'
-import Feed from '../screens/Feed'
-import Profile from '../screens/Profile'
 import Search from '../screens/Search'
 
 import { FeedNavigator } from './StackNavigator'
@@ -65,8 +63,10 @@ const TabNavigator = createBottomTabNavigator({
             }
         },
         Profile: {
-            screen: Profile,
+            screen: FeedNavigator,
             navigationOptions: {
+                
+
                 tabBarIcon: ({ focused }) => (
                     <Icon
                         name="person-outline"

@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { SET_USER, SET_HANDLE_CHECK, HANDLE_CHECKED, SET_PROFILE_PICTURE, SET_LOGGED_IN_CHECK } from './actionTypes'
+import { SET_USER, SET_HANDLE_CHECK, HANDLE_CHECKED, SET_PROFILE_PICTURE, SET_LOGGED_IN_CHECK, SET_CURRENT_PROFILE } from './actionTypes'
 
 
 export const login = async (user, dispatch) =>{
@@ -21,6 +21,7 @@ export const login = async (user, dispatch) =>{
         if(!userObj.errors){
           dispatch({type: SET_USER, payload: userObj});
           dispatch({type: SET_LOGGED_IN_CHECK, payload: true})
+          dispatch({type: SET_CURRENT_PROFILE, payload: userObj.user})
         }else{
           alert('Wrong username and/ore password, or user not found. Pls try again or signup if you are a new user')
         }
